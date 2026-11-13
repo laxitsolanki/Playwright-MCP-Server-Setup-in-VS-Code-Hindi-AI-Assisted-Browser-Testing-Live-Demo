@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright Login Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, "Segoe UI", sans-serif;
+        color: #172033;
+        background: #f2f5fb;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: radial-gradient(circle at 15% 15%, #dbeafe, transparent 35%),
+          radial-gradient(circle at 85% 85%, #dcfce7, transparent 30%), #f2f5fb;
+      }
+
+      main {
+        width: min(100%, 430px);
+        padding: 38px;
+        border: 1px solid #e6eaf1;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 24px 70px #26385c1c;
+      }
+
+      .badge {
+        display: inline-flex;
+        padding: 7px 11px;
+        border-radius: 999px;
+        color: #1857bd;
+        background: #eaf2ff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+      }
+
+      h1 { margin: 20px 0 8px; font-size: 30px; letter-spacing: -.04em; }
+      .intro, .hint { color: #657087; line-height: 1.55; }
+      .intro { margin: 0 0 26px; }
+      label { display: block; margin: 18px 0 8px; font-size: 14px; font-weight: 650; }
+
+      input {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid #d5dbe6;
+        border-radius: 10px;
+        outline: none;
+        font: inherit;
+      }
+
+      input:focus { border-color: #3478e5; box-shadow: 0 0 0 3px #3478e526; }
+
+      button {
+        width: 100%;
+        margin-top: 24px;
+        padding: 14px;
+        border: 0;
+        border-radius: 10px;
+        color: #fff;
+        background: #2164d1;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover { background: #174fae; }
+      .hint { margin: 20px 0 0; font-size: 13px; }
+      .message { margin: 18px 0 0; font-size: 14px; line-height: 1.45; }
+      .error { color: #b42318; }
+      .success { color: #167443; }
+      [hidden] { display: none !important; }
+
+      @media (max-width: 480px) { main { padding: 28px 22px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="badge">Playwright practice app</span>
+      <h1>Welcome back</h1>
+      <p class="intro">Sign in to the local demo and watch the test check both failure and success.</p>
+
+      <form id="login-form">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="username" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+        <button type="submit">Sign in</button>
+      </form>
+
+      <p class="hint">Demo only — use <strong>demo@example.com</strong> / <strong>Playwright123!</strong></p>
+      <p id="message" class="message" role="status" aria-live="polite" hidden></p>
+    </main>
+
+    <script>
+      const form = document.querySelector('#login-form');
+      const message = document.querySelector('#message');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const isValid = data.get('email') === 'demo@example.com'
+          && data.get('password') === 'Playwright123!';
+
+        message.hidden = false;
+        message.className = `message ${isValid ? 'success' : 'error'}`;
+        message.textContent = isValid
+          ? 'Signed in successfully. Welcome to the demo!'
+          : 'Email or password is incorrect. Please try again.';
+      });
+    </script>
+  </body>
+</html>

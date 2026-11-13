@@ -1,0 +1,13 @@
+{
+  "name": "playwright-mcp-ai-testing-demo",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed --workers=1",
+    "dev": "node scripts/serve-demo.mjs",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}
